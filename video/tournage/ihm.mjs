@@ -9,7 +9,7 @@ import { join, resolve } from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const TYPES = ['attendre', 'touche', 'clic', 'attendre_selecteur', 'defiler'];
-const INTERDITS = /#entreprise|#levels/;   // champs qui s'enregistrent sur le serveur
+const INTERDITS = /#entreprise|#attempt|#f-/;   // champs et boutons qui enregistrent sur le serveur (texte entreprise, essais Agent Breaker)
 
 export function verifierActions(actions) {
   for (const a of actions) {

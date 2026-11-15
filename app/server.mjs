@@ -20,7 +20,7 @@ async function body(req) {
   const chunks = []; let size = 0;
   for await (const chunk of req) {
     size += chunk.length;
-    if (size > 20000) throw error(413, 'Requête trop longue.');
+    if (size > 60000) throw error(413, 'Requête trop longue.');   // room for 50 Agent Breaker attempts with their prompts
     chunks.push(chunk);
   }
   try { return JSON.parse(Buffer.concat(chunks).toString('utf8')); } catch { throw error(400, 'JSON invalide.'); }
@@ -51,7 +51,9 @@ export function createLab({ dataDir = process.env.DATA_DIR || './data', reportDi
     const { verdict, findings } = evaluate(s);
     return { ...v, verdict, findings, ...(withPrompt ? { system: s.system, secret: s.secret } : {}) };
   };
-  const validNotes = n => typeof n.entreprise === 'string' && Array.isArray(n.gandalf) && n.gandalf.length <= 8 && n.gandalf.every(g => g && typeof g === 'object' && Object.values(g).every(x => typeof x === 'string'));
+  // breaker: Agent Breaker attempts typed by the presenters. gandalf: the former list, kept so notes saved before still load.
+  const notesList = v => v === undefined || (Array.isArray(v) && v.length <= 60 && v.every(g => g && typeof g === 'object' && Object.values(g).every(x => typeof x === 'string')));
+  const validNotes = n => typeof n.entreprise === 'string' && notesList(n.breaker) && notesList(n.gandalf);
   // ponytail: one generation at a time bounds CPU/RAM on this demonstration VM.
   let busy = false;
   const handoffs = new Map();   // one-time sign-in codes -> expiry (ms)
@@ -100,13 +102,17 @@ export function createLab({ dataDir = process.env.DATA_DIR || './data', reportDi
         const file = join(dataDir, 'notes.json');
         if (req.method === 'GET') {
           try { return send(200, JSON.parse(readFileSync(file, 'utf8'))); }
-          catch (e) { if (e.code === 'ENOENT') return send(200, { gandalf: [], entreprise: '' }); throw e; }
+          catch (e) { if (e.code === 'ENOENT') return send(200, { breaker: [], entreprise: '' }); throw e; }
         }
         if (req.method !== 'PUT') throw error(405, 'Méthode refusée.');
-        const input = await body(req); exactObject(input, ['gandalf', 'entreprise']);
+        const input = await body(req); exactObject(input, ['breaker', 'gandalf', 'entreprise']);
         if (!validNotes(input)) throw error(400, 'Notes invalides.');
-        writeFileSync(file + '.tmp', JSON.stringify(input, null, 2), { mode: 0o600 }); renameSync(file + '.tmp', file);
-        return send(200, input);
+        // A page loaded before a list existed saves without it: keep the stored list rather than lose it.
+        let stored = {};
+        try { stored = JSON.parse(readFileSync(file, 'utf8')); } catch (e) { if (e.code !== 'ENOENT') throw e; }
+        const notes = { ...stored, ...input };
+        writeFileSync(file + '.tmp', JSON.stringify(notes, null, 2), { mode: 0o600 }); renameSync(file + '.tmp', file);
+        return send(200, notes);
       }
       if (req.method === 'GET' && path === '/api/sessions') return send(200, [...sessions.values()].filter(s => s.owner === owner).map(s => view(s, owner, false)));
       if (req.method === 'GET' && path === '/api/reports') {

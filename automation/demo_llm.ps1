@@ -611,7 +611,7 @@ function Open-Ihm {
         if ($r.Erreur) { Set-Verdict 'L''IHM web n''a pas pu s''ouvrir' $r.Erreur 'pb' 'À vérifier'; return }
         # Code à usage unique, valable une minute : aucun secret durable dans l'adresse ni dans le presse-papiers.
         Start-Process "$($sync.Base)/#code=$($r.Code)"
-        Set-Verdict 'L''IHM web est ouverte dans le navigateur' "Adresse $($sync.Base), déjà connectée. On y trouve les cinq écrans de la soutenance, Gandalf et le classement OWASP." 'idle'
+        Set-Verdict 'L''IHM web est ouverte dans le navigateur' "Adresse $($sync.Base), déjà connectée. On y trouve les cinq écrans de la soutenance, Agent Breaker et le classement OWASP." 'idle'
     }
 }
 function Open-Console([string]$h) {
@@ -677,7 +677,7 @@ $TxtMode.Text = switch ($Mode) {
 }
 if ($Mode -eq 'aucun') { $ModeBox.Background = $B.ExtBg }
 $BtnPve.ToolTip = 'Interface web du serveur Proxmox : https://localhost:8006 (ssh -L 8006:127.0.0.1:8006 lab-host)'
-$BtnIhm.ToolTip = "IHM web du labo : $($sync.Base) (les cinq écrans de la soutenance, Gandalf et le classement OWASP)"
+$BtnIhm.ToolTip = "IHM web du labo : $($sync.Base) (les cinq écrans de la soutenance, Agent Breaker et le classement OWASP)"
 $BtnServer.ToolTip = 'Ouvrir une console SSH sur le serveur Proxmox (compte administrateur)'
 if (-not $Cle) { $BtnPve.IsEnabled = $false; $BtnPve.ToolTip = 'Proxmox : réservé à la clé d''administration' }
 if ($Mode -ne 'admin') { $BtnServer.IsEnabled = $false; $BtnServer.ToolTip = 'Console du serveur : réservée à la clé d''administration' }

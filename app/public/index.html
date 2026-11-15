@@ -13,7 +13,7 @@
   <nav id="steps" aria-label="Étapes de la soutenance">
     <button type="button" data-step="question">1 La question</button>
     <button type="button" data-step="ollama">2 Attaques sur Ollama</button>
-    <button type="button" data-step="gandalf">3 Gandalf</button>
+    <button type="button" data-step="breaker">3 Agent Breaker</button>
     <button type="button" data-step="owasp">4 Classement OWASP</button>
     <button type="button" data-step="reponse">5 La réponse</button>
   </nav>
@@ -61,7 +61,7 @@
       </figcaption>
     </figure>
   </div>
-  <p class="method">Ma démarche : huit attaques sur un LLM local (Ollama), les niveaux du jeu Gandalf, puis un classement selon l’OWASP Top 10 LLM 2025.</p>
+  <p class="method">Ma démarche : huit attaques sur un LLM local (Ollama), le jeu Agent Breaker de Lakera à la place de Gandalf, en pause, puis un classement selon l’OWASP Top 10 LLM 2025.</p>
 </section>
 
 <section id="ollama" class="scene lab" hidden>
@@ -99,12 +99,29 @@
   </div>
 </section>
 
-<section id="gandalf" class="scene" hidden>
-  <h1>Gandalf : un secret, des défenses qui s’empilent</h1>
-  <p class="lede">Un jeu public de Lakera : obtenir le secret gardé par un LLM. Chaque niveau change la défense.
-    <a class="button" href="https://gandalf.lakera.ai/" target="_blank" rel="noopener">Ouvrir Gandalf</a></p>
-  <div class="scroll"><table id="levels" class="matrix"></table></div>
-  <p class="note">Carré plein : défense active à ce niveau. « ? » : non publié par Lakera. Les trois dernières lignes sont mes essais, enregistrés à chaque modification.</p>
+<section id="breaker" class="scene" hidden>
+  <h1>Agent Breaker : des applications d’IA durcies niveau après niveau</h1>
+  <p class="lede">Le jeu public de Lakera, servi à l’adresse de Gandalf depuis que celui-ci est en pause. Dix applications, cinq niveaux, chaque attaque notée sur 100 : il faut 75 pour passer au niveau suivant.
+    <a class="button" href="https://play.lakera.ai/agent-breaker" target="_blank" rel="noopener">Ouvrir Agent Breaker</a></p>
+  <div class="scroll"><table id="apps" class="matrix"></table></div>
+  <div id="attempt" class="attempt" aria-live="polite"></div>
+  <details class="add">
+    <summary>Ajouter ou corriger un essai</summary>
+    <form id="attempt-form">
+      <label>Application <select id="f-app"></select></label>
+      <label>Niveau <select id="f-level"></select></label>
+      <label>Meilleur score sur 100 <input id="f-score" type="number" min="0" max="100" required></label>
+      <label>Nombre d’essais <input id="f-tries" type="number" min="1" max="99" value="1" required></label>
+      <label class="wide">Technique <input id="f-technique" type="text" maxlength="160"></label>
+      <label class="wide">Prompt <textarea id="f-prompt" rows="3" maxlength="600"></textarea></label>
+      <button>Enregistrer l’essai</button>
+    </form>
+  </details>
+  <p class="note">
+    <span class="chip won">100</span> niveau franchi (75 ou plus).
+    <span class="chip held">0</span> l’application a tenu.
+    Case vide : pas encore joué. Un seul essai est retenu par application et par niveau, le meilleur.
+  </p>
 </section>
 
 <section id="owasp" class="scene" hidden>
@@ -115,6 +132,7 @@
     <span class="chip won">S01 2/3</span> attaque réussie 2 fois sur 3 essais
     <span class="chip held">S02 0/2</span> le modèle a tenu
     <span class="chip">S03</span> pas encore joué
+    <span class="chip won">Cycling Coach N1</span> niveau d’Agent Breaker franchi
     <button type="button" id="export" class="quiet">Exporter les essais (JSON)</button>
   </p>
 </section>
@@ -128,7 +146,7 @@
       <ol class="reasons">
         <li><strong>Un seul canal.</strong> Aucune frontière technique ne sépare une règle d’un texte reçu : pas d’équivalent des requêtes préparées. <small>Vu à l’étape 2, « Voir comme le modèle ».</small></li>
         <li><strong>Une infinité de formulations.</strong> Rôle fictif, autre langue, encodage : chaque reformulation est une nouvelle attaque, aucune liste noire n’est complète. <small>Attaques S04 et S08.</small></li>
-        <li><strong>Des défenses probabilistes.</strong> Un filtre ou un second modèle réduit le taux de réussite, sans garantie. <small>Gandalf : les défenses s’empilent, les joueurs passent.</small></li>
+        <li><strong>Des défenses probabilistes.</strong> Un filtre ou un second modèle réduit le taux de réussite, sans garantie. <small>Étape 3 : les scores d’Agent Breaker, niveau par niveau.</small></li>
         <li><strong>L’attaque arrive par les données.</strong> Un document, une page web ou un e-mail peut porter l’instruction sans que l’utilisateur l’ait écrite. <small>Attaque S07.</small></li>
       </ol>
       <h2>Ce qui réduit le risque</h2>
