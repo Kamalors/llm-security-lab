@@ -1,0 +1,127 @@
+[
+ {
+  "action": "attendre",
+  "valeur": 2000,
+  "t": 0.14
+ },
+ {
+  "action": "touche",
+  "valeur": "ArrowRight",
+  "t": 2.15
+ },
+ {
+  "action": "attendre",
+  "valeur": 2000,
+  "t": 2.21
+ },
+ {
+  "action": "clic",
+  "valeur": "#scenarios button.scn:nth-child(1)",
+  "t": 4.22
+ },
+ {
+  "action": "attendre",
+  "valeur": 2000,
+  "t": 4.5
+ },
+ {
+  "action": "clic",
+  "valeur": "#flat",
+  "t": 6.51
+ },
+ {
+  "action": "attendre",
+  "valeur": 2000,
+  "t": 6.79
+ },
+ {
+  "action": "touche",
+  "valeur": "ArrowRight",
+  "t": 8.8
+ },
+ {
+  "action": "attendre",
+  "valeur": 9000,
+  "t": 8.84
+ },
+ {
+  "action": "clic",
+  "valeur": "#apps tbody tr:nth-child(1) .score.won",
+  "t": 17.84
+ },
+ {
+  "action": "attendre",
+  "valeur": 7000,
+  "t": 18.12
+ },
+ {
+  "action": "clic",
+  "valeur": "#apps tbody tr:nth-child(1) .score.held",
+  "t": 25.13
+ },
+ {
+  "action": "attendre",
+  "valeur": 7000,
+  "t": 25.41
+ },
+ {
+  "action": "clic",
+  "valeur": "#apps tbody tr:nth-child(3) .score.won",
+  "t": 32.42
+ },
+ {
+  "action": "attendre",
+  "valeur": 7000,
+  "t": 32.69
+ },
+ {
+  "action": "defiler",
+  "valeur": "page",
+  "t": 39.7
+ },
+ {
+  "action": "attendre",
+  "valeur": 4000,
+  "t": 39.7
+ },
+ {
+  "action": "touche",
+  "valeur": "ArrowRight",
+  "t": 43.71
+ },
+ {
+  "action": "attendre",
+  "valeur": 8000,
+  "t": 43.75
+ },
+ {
+  "action": "defiler",
+  "valeur": "page",
+  "t": 51.76
+ },
+ {
+  "action": "attendre",
+  "valeur": 5000,
+  "t": 51.76
+ },
+ {
+  "action": "touche",
+  "valeur": "ArrowRight",
+  "t": 56.77
+ },
+ {
+  "action": "attendre",
+  "valeur": 6000,
+  "t": 56.81
+ },
+ {
+  "action": "defiler",
+  "valeur": "page",
+  "t": 62.82
+ },
+ {
+  "action": "attendre",
+  "valeur": 5000,
+  "t": 62.83
+ }
+]
