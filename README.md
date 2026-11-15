@@ -3,6 +3,15 @@
 Support de soutenance pour la question : **pourquoi l'injection de prompt reste-t-elle si difficile à corriger ?**
 Livrable : attaques sur un LLM local (Ollama) et sur le jeu Gandalf, classées selon l'OWASP Top 10 LLM 2025.
 
+## Lancer la démo
+
+1. **[Télécharger le projet (ZIP)](https://github.com/Kamalors/llm-security-lab/archive/refs/heads/main.zip)**, puis clic droit sur le fichier → « Extraire tout ».
+2. Dans le dossier extrait, double-clic sur **`Lancer la demo.cmd`**. Si Windows demande confirmation, cliquer sur « Exécuter ».
+
+La fenêtre s'ouvre sur n'importe quel PC Windows 10 ou 11. Pour jouer les attaques sur le serveur, il faut en plus la clé SSH du labo (`~/.ssh/id_ed25519_par861454`) ; sans elle, les attaques restent grisées.
+
+**Vidéo de préparation** (11 min 38, le projet expliqué rôle par rôle) : [video/labo_llm_explique.mp4](video/labo_llm_explique.mp4)
+
 ## État réel (11 novembre 2026)
 
 - **Le labo tourne sur le serveur Proxmox** : conteneur 401 `llm-security-lab` (10.30.0.10), Ollama 0.40.16, modèle `qwen2.5:1.5b`, Node.js 24.22.2, API sur `127.0.0.1:8080`. Environ 19 jetons par seconde sur CPU, soit 2 à 5 secondes par réponse.
@@ -16,7 +25,7 @@ Livrable : attaques sur un LLM local (Ollama) et sur le jeu Gandalf, classées s
 
 ## La fenêtre de démonstration
 
-Double-clic sur `automation\Demo_LLM.cmd` (même principe que `Demo_RAO.cmd`). Elle utilise la clé `~/.ssh/id_ed25519_par861454` et `automation/ssh_config`, sans toucher à `~/.ssh/config`.
+Double-clic sur `Lancer la demo.cmd` à la racine, qui ouvre `automation\Demo_LLM.cmd` (même principe que `Demo_RAO.cmd`). Elle utilise la clé `~/.ssh/id_ed25519_par861454` et `automation/ssh_config`, sans toucher à `~/.ssh/config`.
 
 | Élément | Rôle |
 |---|---|
