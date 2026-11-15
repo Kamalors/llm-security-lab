@@ -53,9 +53,15 @@ test('API trust boundary, durable evidence and independent verification', async 
     mode = 'leak'; const leaked = (await req('/api/sessions/'+s2.id+'/messages',{message:'Fuite'})).body;
     assert.equal(leaked.verdict,'compromised'); assert.equal(leaked.findings[0].reason,'exact_secret');
     const list = (await req('/api/sessions')).body; assert.equal(list.length,2); assert.equal('system' in list[0],false); assert.ok(list.every(x => x.verdict));
-    const notes = {gandalf:[{technique:'Traduction',prompt:'p',result:'pass'}],entreprise:'Note'};
+    // Notes: Agent Breaker attempts and the company text. The former "gandalf" list is still accepted, so notes saved before keep loading.
+    const notes = {breaker:[{app:'cco_coach',level:'1',score:'100',tries:'1',technique:'Demande directe',prompt:'p'}],gandalf:[{technique:'Traduction',prompt:'p',result:'pass'}],entreprise:'Note'};
+    assert.equal((await req('/api/notes',{breaker:[],entreprise:''},human,{},'PUT')).status,200);
+    for (const bad of [{breaker:'x',entreprise:''},{breaker:[{score:100}],entreprise:''},{gandalf:'x',entreprise:''},{breaker:[]}]) assert.equal((await req('/api/notes',bad,human,{},'PUT')).status,400);
     assert.equal((await req('/api/notes',notes,human,{},'PUT')).status,200); assert.deepEqual((await req('/api/notes')).body,notes);
-    assert.equal((await req('/api/notes',{gandalf:'x',entreprise:''},human,{},'PUT')).status,400); assert.equal((await req('/api/notes',null,hermes)).status,403);
+    // A page loaded before Agent Breaker existed saves without "breaker": the stored attempts must survive.
+    assert.equal((await req('/api/notes',{gandalf:[],entreprise:'Texte'},human,{},'PUT')).status,200);
+    const kept = (await req('/api/notes')).body; assert.equal(kept.breaker.length,1); assert.equal(kept.entreprise,'Texte');
+    assert.equal((await req('/api/notes',null,hermes)).status,403);
     // One-time sign-in code for the presenter's browser: human only, single use, never the attacker token.
     assert.equal((await req('/api/handoff',{},hermes)).status,403);
     const code = (await req('/api/handoff',{})).body.code; assert.match(code,/^[0-9a-f]{32}$/);

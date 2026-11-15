@@ -29,7 +29,7 @@ button, .button, input, select, textarea { font: inherit; color: inherit; border
 button, .button { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); padding: .5em 1em; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
 button:disabled { opacity: .45; cursor: not-allowed; }
 button.quiet { background: none; color: var(--ink); border-color: var(--line); font-weight: 400; }
-input[type=password], select, textarea { background: var(--surface); border: 1px solid var(--line); padding: .5em .65em; }
+input[type=password], input[type=number], input[type=text], select, textarea { background: var(--surface); border: 1px solid var(--line); padding: .5em .65em; }
 textarea { width: 100%; resize: vertical; display: block; }
 
 /* Top bar: the five steps of the talk, in order. */
@@ -103,19 +103,31 @@ mark { background: var(--ext); color: var(--paper); padding: 0 .15em; }
 .compose textarea { font-family: var(--mono); font-size: 1rem; }
 .compose button { white-space: nowrap; }
 
-/* 3. Gandalf: which defence is on at which level, then my own attempts. */
-.scroll { overflow-x: auto; margin: 1.2rem 0 .8rem; }
-.matrix { border-collapse: collapse; width: 100%; min-width: 1100px; table-layout: fixed; }
-.matrix th, .matrix td { border-bottom: 1px solid var(--line); padding: .45rem .4rem; text-align: center; vertical-align: top; }
+/* 3. Agent Breaker: one row per app, one column per level, the best score in each cell. */
+#breaker h1 { max-width: none; }
+.scroll { overflow-x: auto; margin: 1rem 0 .6rem; }
+.matrix { border-collapse: collapse; width: 100%; min-width: 900px; table-layout: fixed; }
+.matrix th, .matrix td { border-bottom: 1px solid var(--line); padding: .22rem .4rem; text-align: center; vertical-align: middle; }
 .matrix th[scope=row] { text-align: left; font-weight: 400; }
-.matrix thead th:first-child { width: 24rem; }
-.matrix thead th { font: 600 1.2rem var(--display); font-stretch: 85%; }
-.matrix td.on::before { content: ""; display: inline-block; width: 1.05rem; height: 1.05rem; background: var(--sys); vertical-align: middle; }
-.matrix td.unknown { color: var(--muted); }
-.matrix .mine th { font-weight: 600; }
-.matrix select, .matrix textarea { width: 100%; font-size: .8rem; padding: .3em; }
-.matrix select.pass { border-color: var(--ext); color: var(--ext); font-weight: 600; }
-.matrix select.blocked { border-color: var(--sys); color: var(--sys); font-weight: 600; }
+.matrix thead th:first-child { width: 56%; }
+.matrix thead th { font: 600 1.15rem var(--display); font-stretch: 85%; }
+.score { min-width: 3.6rem; padding: .05em .5em; font: 700 1.2rem var(--display); font-stretch: 85%; border-width: 2px; }
+.score.won { background: var(--ext); border-color: var(--ext); color: var(--paper); }
+.score.held { background: none; border-color: var(--sys); color: var(--sys); }
+.score[aria-pressed=true] { outline: 3px solid var(--ink); outline-offset: 2px; }
+.attempt { min-height: 8.5rem; margin: .7rem 0 .4rem; }
+.attempt h2 { margin-bottom: .15em; }
+.attempt p { margin-bottom: .3em; }
+.attempt pre { font: .92rem/1.5 var(--mono); white-space: pre-wrap; overflow-wrap: anywhere; background: var(--surface); border: 1px solid var(--line); border-radius: 4px; padding: .5rem .8rem; margin: .3rem 0 .5rem; max-width: 120ch; }
+.attempt .quiet, .add summary { font-size: .85rem; color: var(--muted); }
+.attempt .quiet { padding: .15em .7em; }
+.add { margin: .4rem 0 .8rem; }
+.add summary { cursor: pointer; }
+#attempt-form { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .6rem 1rem; align-items: end; margin-top: .6rem; max-width: 72rem; }
+#attempt-form label { display: grid; gap: .2rem; font-size: .85rem; color: var(--muted); }
+#attempt-form .wide { grid-column: 1 / -1; }
+#attempt-form input, #attempt-form select { width: 100%; }
+#attempt-form button { justify-self: start; }
 
 /* 4. OWASP board: ten categories, the evidence I have for each. */
 .board { margin: 1.2rem 0 1rem; border-top: 1px solid var(--line); }

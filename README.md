@@ -1,7 +1,7 @@
 # Laboratoire de sécurité LLM
 
 Support de soutenance pour la question : **pourquoi l'injection de prompt reste-t-elle si difficile à corriger ?**
-Livrable : attaques sur un LLM local (Ollama) et sur le jeu Gandalf, classées selon l'OWASP Top 10 LLM 2025.
+Livrable : attaques sur un LLM local (Ollama) et sur le jeu de Lakera (Agent Breaker, qui a pris la place de Gandalf), classées selon l'OWASP Top 10 LLM 2025.
 
 ## Lancer la démo
 
@@ -20,7 +20,7 @@ La fenêtre s'ouvre sur n'importe quel PC Windows 10 ou 11. Pour jouer les attaq
 - **L'IHM web a été essayée sur le serveur le 15/11/2026**, pendant le tournage de la vidéo : les cinq écrans fonctionnent. Un bug y a été corrigé : une fois « Voir comme le modèle » coché, les flèches et la télécommande ne changeaient plus d'écran. **Pas encore essayé** : le bouton « Ouvrir Proxmox ».
 - **Vidéo de préparation de la soutenance** : `video/labo_llm_explique.mp4` (le projet expliqué rôle par rôle, avec une fiche par présentateur). Chapitres et transcription dans `video/chapitres.md`. Pour la reconstruire : `python video/montage.py video/script.json video/travail`.
 - **Le conteneur n'a pas de sortie Internet**, et n'en a pas besoin pour fonctionner. Voir « Créer l'infrastructure ».
-- **Gandalf** : le 10/11/2026, l'API du jeu répondait « temporarily paused » pour les niveaux 7 et 8.
+- **Agent Breaker à la place de Gandalf** : le jeu Gandalf classique n'est plus jouable. Le 15/11/2026, `gandalf.lakera.ai` redirige vers Agent Breaker, un autre jeu de Lakera, et l'ancien jeu répond « This game is temporarily paused. We're rebuilding it. » à tout message. L'écran 3 présente donc Agent Breaker, avec cinq essais réels joués le 15/11 : détail dans [docs/agent-breaker-resultats.md](docs/agent-breaker-resultats.md).
 - Tests automatiques : 3 sur 3.
 
 ## La fenêtre de démonstration
@@ -47,7 +47,7 @@ Flèches gauche/droite ou télécommande de présentation pour passer d'un écra
 |---|---|
 | 1 La question | Injection SQL (deux canaux, corrigée) face à l'injection de prompt (un seul canal) |
 | 2 Attaques sur Ollama | Les 8 attaques en direct : ce que le modèle reçoit, sa réponse, le verdict. « Voir comme le modèle » affiche la suite de jetons ChatML |
-| 3 Gandalf | Quelle défense est active à quel niveau, et tes essais (technique, prompt, résultat), enregistrés sur le serveur |
+| 3 Agent Breaker | Les dix applications du jeu de Lakera, le meilleur score par niveau, et pour chaque essai la technique et le prompt. Un formulaire ajoute ou corrige un essai, enregistré sur le serveur |
 | 4 Classement OWASP | Les 10 catégories avec les essais réels qui s'y rattachent |
 | 5 La réponse | Les quatre raisons, les mesures, « Et dans mon entreprise ? » (à remplir), les sources |
 
@@ -91,7 +91,7 @@ Relancé, il ne retélécharge rien : il recopie `app/` et `verifier/` et redém
 ssh -F automation/ssh_config llm-lab "rm -f /opt/llm-security-lab/data/[0-9a-f]*.json; systemctl restart llm-lab"
 ```
 
-Les notes Gandalf et « Et dans mon entreprise ? » (`data/notes.json`) sont conservées.
+Les essais Agent Breaker et « Et dans mon entreprise ? » (`data/notes.json`) sont conservés.
 
 ## Lancer l'IHM à la main
 
