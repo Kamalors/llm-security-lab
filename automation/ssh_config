@@ -1,0 +1,23 @@
+# Accès SSH au labo de sécurité LLM, sans toucher à ~/.ssh/config.
+# Usage depuis la racine du projet : ssh -F automation/ssh_config llm-lab
+# Chaîne : PC -> hôte Proxmox (administrateur) -> conteneur du labo (root, réseau dédié 10.30.0.0/24)
+
+Host lab-host
+    HostName 163.172.105.87
+    User administrateur
+
+# Conteneur LXC créé par deploy/provision-ct.sh. L'API et l'IHM n'y écoutent que sur 127.0.0.1 :
+#   ssh -F automation/ssh_config -N -L 8080:127.0.0.1:8080 llm-lab   puis http://127.0.0.1:8080
+Host llm-lab
+    HostName 10.30.0.10
+    User root
+    ProxyJump lab-host
+    HostKeyAlias llm-security-lab-401
+    UserKnownHostsFile ~/.ssh/known_hosts_llm_lab
+    StrictHostKeyChecking accept-new
+
+Host *
+    IdentityFile ~/.ssh/id_ed25519_par861454
+    IdentitiesOnly yes
+    BatchMode yes
+    ServerAliveInterval 30

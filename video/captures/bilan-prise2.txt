@@ -1,0 +1,8 @@
+S01 compromised 1
+S02 held 2
+S03 held 2
+S04 held 2
+S05 compromised 1
+S06 compromised 1
+S07 compromised 2
+S08 compromised 1

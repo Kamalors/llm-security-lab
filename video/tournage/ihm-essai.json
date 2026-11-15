@@ -1,0 +1,8 @@
+[
+ {"attendre": 4000},
+ {"touche": "ArrowRight"}, {"attendre": 4000},
+ {"touche": "ArrowRight"}, {"attendre": 4000},
+ {"touche": "ArrowRight"}, {"attendre": 4000},
+ {"touche": "ArrowRight"}, {"attendre": 3000},
+ {"defiler": "page", "de": 700}, {"attendre": 3000}
+]

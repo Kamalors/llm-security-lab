@@ -1,0 +1,7 @@
+{
+  "name": "llm-security-lab",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "scripts": { "start": "node app/server.mjs", "test": "node --test tests/*.test.mjs", "verify": "node verifier/verify.mjs" }
+}

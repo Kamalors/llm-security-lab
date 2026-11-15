@@ -1,0 +1,3 @@
+# Scripts lancés sous Linux (souvent par « bash -s < fichier ») : jamais de CRLF, même depuis un clone Windows
+*.sh text eol=lf
+*.cmd text eol=crlf

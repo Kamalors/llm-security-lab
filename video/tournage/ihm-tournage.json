@@ -1,0 +1,14 @@
+[
+ {"attendre": 8000},
+ {"touche": "ArrowRight"}, {"attendre": 3000},
+ {"clic": "#scenarios button.scn:nth-child(1)"}, {"attendre": 3000},
+ {"clic": "#seeds button:nth-child(1)"}, {"attendre": 1500},
+ {"clic": "#submit"},
+ {"attendre_selecteur": "#verdict:not([hidden])", "max": 240000}, {"attendre": 5000},
+ {"clic": "#flat"}, {"attendre": 6000},
+ {"defiler": "#stream", "de": 500}, {"attendre": 5000},
+ {"touche": "ArrowRight"}, {"attendre": 8000},
+ {"touche": "ArrowRight"}, {"attendre": 8000},
+ {"touche": "ArrowRight"}, {"attendre": 6000},
+ {"defiler": "page", "de": 700}, {"attendre": 4000}
+]

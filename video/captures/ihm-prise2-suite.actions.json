@@ -1,0 +1,97 @@
+[
+ {
+  "action": "attendre",
+  "valeur": 2000,
+  "t": 0.15
+ },
+ {
+  "action": "touche",
+  "valeur": "ArrowRight",
+  "t": 2.16
+ },
+ {
+  "action": "attendre",
+  "valeur": 2000,
+  "t": 2.2
+ },
+ {
+  "action": "clic",
+  "valeur": "#scenarios button.scn:nth-child(1)",
+  "t": 4.2
+ },
+ {
+  "action": "attendre",
+  "valeur": 2000,
+  "t": 4.48
+ },
+ {
+  "action": "clic",
+  "valeur": "#flat",
+  "t": 6.49
+ },
+ {
+  "action": "attendre",
+  "valeur": 2000,
+  "t": 6.76
+ },
+ {
+  "action": "touche",
+  "valeur": "ArrowRight",
+  "t": 8.76
+ },
+ {
+  "action": "attendre",
+  "valeur": 8000,
+  "t": 8.78
+ },
+ {
+  "action": "defiler",
+  "valeur": "page",
+  "t": 16.79
+ },
+ {
+  "action": "attendre",
+  "valeur": 4000,
+  "t": 16.8
+ },
+ {
+  "action": "touche",
+  "valeur": "ArrowRight",
+  "t": 20.8
+ },
+ {
+  "action": "attendre",
+  "valeur": 8000,
+  "t": 20.84
+ },
+ {
+  "action": "defiler",
+  "valeur": "page",
+  "t": 28.85
+ },
+ {
+  "action": "attendre",
+  "valeur": 5000,
+  "t": 28.85
+ },
+ {
+  "action": "touche",
+  "valeur": "ArrowRight",
+  "t": 33.86
+ },
+ {
+  "action": "attendre",
+  "valeur": 6000,
+  "t": 33.9
+ },
+ {
+  "action": "defiler",
+  "valeur": "page",
+  "t": 39.91
+ },
+ {
+  "action": "attendre",
+  "valeur": 5000,
+  "t": 39.91
+ }
+]

@@ -1,0 +1,162 @@
+/* Two inks carry the whole interface: --sys is what the developer wrote (and "the rules held"),
+   --ext is what came from outside (and "the attack won"). Everything else is neutral. */
+:root {
+  --paper: #F5F7FB; --surface: #FFFFFF; --ink: #101936; --muted: #4B5675; --line: #C8D0E0;
+  --sys: #1D3FCB; --ext: #C2410C;
+  --display: Bahnschrift, "DIN Alternate", "Roboto Condensed", "Arial Narrow", sans-serif;
+  --body: "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+  --mono: "Cascadia Mono", "Cascadia Code", Consolas, ui-monospace, monospace;
+  color-scheme: light;
+}
+:root[data-theme=dark] {
+  --paper: #0D1226; --surface: #161C38; --ink: #E8ECF8; --muted: #A3ADC9; --line: #36406A;
+  --sys: #8FA5FF; --ext: #FF9A52;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 18px/1.5 var(--body); }
+h1, h2, .brand, #steps button, .code { font-family: var(--display); font-stretch: 85%; }
+h1 { font-size: clamp(1.8rem, 3vw, 2.9rem); line-height: 1.06; font-weight: 700; margin: 0 0 .35em; max-width: 34ch; text-wrap: balance; }
+#question h1 { font-size: clamp(2.1rem, 4.2vw, 4rem); max-width: 28ch; }
+h2 { font-size: 1.45rem; line-height: 1.2; font-weight: 600; margin: 0 0 .4em; }
+p { margin: 0 0 .8em; }
+a { color: var(--sys); }
+small, .note { color: var(--muted); font-size: .85rem; }
+:focus-visible { outline: 3px solid var(--sys); outline-offset: 2px; }
+
+button, .button, input, select, textarea { font: inherit; color: inherit; border-radius: 4px; }
+button, .button { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); padding: .5em 1em; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; }
+button:disabled { opacity: .45; cursor: not-allowed; }
+button.quiet { background: none; color: var(--ink); border-color: var(--line); font-weight: 400; }
+input[type=password], select, textarea { background: var(--surface); border: 1px solid var(--line); padding: .5em .65em; }
+textarea { width: 100%; resize: vertical; display: block; }
+
+/* Top bar: the five steps of the talk, in order. */
+.bar { display: flex; align-items: center; gap: 1.4rem; padding: .55rem 2rem; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.brand { font-size: 1.15rem; }
+#steps { display: flex; gap: .3rem; flex-wrap: wrap; margin-right: auto; }
+#steps button { background: none; color: var(--muted); border: 0; border-bottom: 3px solid transparent; border-radius: 0; padding: .35em .6em; font-size: 1.1rem; font-weight: 600; }
+#steps button[aria-current] { color: var(--ink); border-bottom-color: var(--ink); }
+#status { color: var(--muted); font-size: .85rem; }
+.bar .quiet { font-size: .85rem; padding: .3em .7em; }
+
+.scene { max-width: 1560px; margin: 0 auto; padding: 1.8rem 2rem 3rem; }
+.lede { font-size: 1.3rem; max-width: 80ch; color: var(--muted); }
+.lede .button { margin-left: .6em; font-size: 1rem; }
+
+/* 1. The question: two channels against one. */
+.compare { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin: 1.6rem 0 1.2rem; }
+figure { margin: 0; }
+figcaption p { max-width: 46ch; }
+svg { width: 100%; height: auto; max-height: 36vh; display: block; margin-bottom: .8rem; }
+svg text { font: 600 15px var(--body); fill: var(--ink); }
+svg text.sys { fill: var(--sys); } svg text.ext { fill: var(--ext); }
+.lane { fill: none; stroke-width: 6; stroke-linecap: round; }
+.lane.sys { stroke: var(--sys); } .lane.ext { stroke: var(--ext); }
+.lane[pathLength] { stroke-dasharray: 1; stroke-dashoffset: 1; animation: draw 1s ease-out .15s forwards; }
+.lane.mix { stroke-linecap: butt; stroke-dasharray: 10 10; opacity: 0; animation: appear .3s linear 1.1s forwards; }
+.lane.mix.ext { stroke-dashoffset: 10; }
+.box { fill: var(--surface); stroke: var(--ink); stroke-width: 2; }
+.port { fill: var(--ink); } .port.sys { fill: var(--sys); } .port.ext { fill: var(--ext); }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+@keyframes appear { to { opacity: 1; } }
+.method { border-top: 1px solid var(--line); padding-top: 1rem; max-width: 80ch; }
+
+/* 2. The bench: list of attacks, then the context window as the model receives it. */
+.lab { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 2.2rem; padding-top: 1.4rem; }
+.scn { display: grid; grid-template-columns: 1.1rem 1fr; column-gap: .55rem; width: 100%; text-align: left; background: none; color: var(--ink); border: 0; border-left: 4px solid transparent; border-radius: 0; padding: .5rem .6rem; font-weight: 600; }
+.scn[aria-pressed=true] { border-left-color: var(--ink); background: var(--surface); }
+.scn small { grid-column: 2; font-weight: 400; }
+.dot { width: .8rem; height: .8rem; margin-top: .4rem; border-radius: 50%; border: 2px solid var(--line); }
+.dot.held { border-color: var(--sys); } .dot.won { border-color: var(--ext); background: var(--ext); }
+.bench-head { min-height: 4.4rem; }
+.bench-head p { color: var(--muted); }
+.context { background: var(--surface); border: 1px solid var(--line); border-radius: 4px; }
+.context-head { display: flex; align-items: center; gap: 1.2rem; padding: .55rem 1rem; border-bottom: 1px solid var(--line); font-size: .95rem; }
+.context-head strong { margin-right: auto; }
+.context-head .quiet { padding: .2em .7em; }
+.stream { font: 1.08rem/1.6 var(--mono); padding: .8rem 1rem; min-height: 9rem; max-height: 46vh; overflow: auto; white-space: pre-wrap; overflow-wrap: anywhere; }
+.seg { display: block; position: relative; padding: .3rem 0 .3rem 11rem; }
+.seg::before { content: attr(data-role); position: absolute; left: 0; top: .5rem; font: 600 .8rem/1.3 var(--body); }
+.seg.sys { color: var(--sys); } .seg.usr { color: var(--ext); }
+.seg.wait { color: var(--muted); animation: pulse 1.2s ease-in-out infinite alternate; }
+@keyframes pulse { to { opacity: .35; } }
+.secret { filter: blur(.3em); transition: filter .4s; }
+.revealed .secret { filter: none; }
+mark { background: var(--ext); color: var(--paper); padding: 0 .15em; }
+/* "Voir comme le modèle": roles and colours collapse into one stream of tokens. */
+.tok { display: none; }
+.flat .tok { display: inline; }
+.flat .seg { display: inline; padding: 0; color: var(--ink); animation: none; }
+.flat .seg::before { content: none; }
+.context .note { padding: 0 1rem .8rem; margin: 0; max-width: 90ch; }
+
+.verdict { margin: .8rem 0 0; padding: .55rem 1rem; border-radius: 4px; font-size: 1.15rem; border: 2px solid var(--line); }
+.verdict strong { font-family: var(--display); font-stretch: 85%; font-size: 1.5rem; margin-right: .5em; }
+.verdict.compromised { background: var(--ext); border-color: var(--ext); color: var(--paper); }
+.verdict.held { background: var(--sys); border-color: var(--sys); color: var(--paper); }
+.controls { border: 0; padding: 0; min-width: 0; display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin: 1rem 0 .6rem; font-size: .95rem; }
+#seeds { display: flex; gap: .5rem; flex-wrap: wrap; flex: 1; min-width: 0; }
+#seeds button { background: none; color: var(--ink); border: 1px dashed var(--muted); font-weight: 400; padding: .25em .7em; max-width: min(26rem, 100%); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.compose { display: flex; gap: .8rem; align-items: stretch; }
+.compose textarea { font-family: var(--mono); font-size: 1rem; }
+.compose button { white-space: nowrap; }
+
+/* 3. Gandalf: which defence is on at which level, then my own attempts. */
+.scroll { overflow-x: auto; margin: 1.2rem 0 .8rem; }
+.matrix { border-collapse: collapse; width: 100%; min-width: 1100px; table-layout: fixed; }
+.matrix th, .matrix td { border-bottom: 1px solid var(--line); padding: .45rem .4rem; text-align: center; vertical-align: top; }
+.matrix th[scope=row] { text-align: left; font-weight: 400; }
+.matrix thead th:first-child { width: 24rem; }
+.matrix thead th { font: 600 1.2rem var(--display); font-stretch: 85%; }
+.matrix td.on::before { content: ""; display: inline-block; width: 1.05rem; height: 1.05rem; background: var(--sys); vertical-align: middle; }
+.matrix td.unknown { color: var(--muted); }
+.matrix .mine th { font-weight: 600; }
+.matrix select, .matrix textarea { width: 100%; font-size: .8rem; padding: .3em; }
+.matrix select.pass { border-color: var(--ext); color: var(--ext); font-weight: 600; }
+.matrix select.blocked { border-color: var(--sys); color: var(--sys); font-weight: 600; }
+
+/* 4. OWASP board: ten categories, the evidence I have for each. */
+.board { margin: 1.2rem 0 1rem; border-top: 1px solid var(--line); }
+.row { display: grid; grid-template-columns: 6.5rem minmax(16rem, 36rem) 1fr; gap: 1.5rem; align-items: baseline; padding: .4rem 0; border-bottom: 1px solid var(--line); }
+.row .code { font-size: 1.7rem; font-weight: 700; }
+.row p { margin: 0; font-size: .95rem; }
+.row.untested, .row.untested .code { color: var(--muted); font-weight: 400; }
+.chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+.chip { display: inline-block; border: 1px solid var(--line); border-radius: 4px; padding: .05em .5em; font-size: .9rem; color: var(--muted); white-space: nowrap; }
+.chip.held { border-color: var(--sys); color: var(--sys); font-weight: 600; }
+.chip.won { border-color: var(--ext); background: var(--ext); color: var(--paper); font-weight: 600; }
+.note .chip { margin-left: 1rem; } .note .chip:first-child { margin-left: 0; }
+.note .quiet { margin-left: 1.5rem; padding: .2em .7em; }
+
+/* 5. The answer. */
+.answer { display: grid; grid-template-columns: 1.15fr 1fr; gap: 3.5rem; margin-top: 1.5rem; }
+.answer h2 { margin-top: 1.2rem; }
+.reasons, .measures, .sources { margin: 0; padding-left: 1.2em; }
+.reasons li { margin-bottom: .65rem; max-width: 62ch; }
+.reasons small { display: block; }
+.sources { font-size: .9rem; }
+.sources li, .measures li { margin-bottom: .25rem; }
+
+dialog { border: 1px solid var(--line); border-radius: 6px; background: var(--surface); color: var(--ink); padding: 1.6rem 1.8rem; width: min(30rem, 92vw); }
+dialog::backdrop { background: rgb(16 25 54 / .55); }
+dialog input { width: 100%; margin-bottom: .6rem; }
+#login-error { color: var(--ext); font-weight: 600; min-height: 1.5em; }
+
+/* Below this width the role labels go above their text instead of eating a side column. */
+@media (max-width: 1100px) {
+  .seg { padding-left: 0; } .seg::before { position: static; display: block; }
+}
+@media (max-width: 900px) {
+  .bar, .scene { padding-left: 1rem; padding-right: 1rem; }
+  .compare, .lab, .answer { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; }
+  .seg { padding-left: 0; } .seg::before { position: static; display: block; }
+  .row { grid-template-columns: 1fr; gap: .2rem; }
+  .compose { flex-direction: column; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lane[pathLength], .lane.mix, .seg.wait { animation: none; stroke-dashoffset: 0; opacity: 1; }
+  .lane.mix.ext { stroke-dashoffset: 10; }
+  .secret { transition: none; }
+}

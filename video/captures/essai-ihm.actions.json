@@ -1,0 +1,57 @@
+[
+ {
+  "action": "attendre",
+  "valeur": 4000,
+  "t": 0.15
+ },
+ {
+  "action": "touche",
+  "valeur": "ArrowRight",
+  "t": 4.15
+ },
+ {
+  "action": "attendre",
+  "valeur": 4000,
+  "t": 4.19
+ },
+ {
+  "action": "touche",
+  "valeur": "ArrowRight",
+  "t": 8.19
+ },
+ {
+  "action": "attendre",
+  "valeur": 4000,
+  "t": 8.22
+ },
+ {
+  "action": "touche",
+  "valeur": "ArrowRight",
+  "t": 12.22
+ },
+ {
+  "action": "attendre",
+  "valeur": 4000,
+  "t": 12.25
+ },
+ {
+  "action": "touche",
+  "valeur": "ArrowRight",
+  "t": 16.26
+ },
+ {
+  "action": "attendre",
+  "valeur": 3000,
+  "t": 16.3
+ },
+ {
+  "action": "defiler",
+  "valeur": "page",
+  "t": 19.31
+ },
+ {
+  "action": "attendre",
+  "valeur": 3000,
+  "t": 19.31
+ }
+]

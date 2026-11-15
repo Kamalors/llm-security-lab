@@ -1,0 +1,12 @@
+[
+ {"attendre": 2000},
+ {"touche": "ArrowRight"}, {"attendre": 2000},
+ {"clic": "#scenarios button.scn:nth-child(1)"}, {"attendre": 2000},
+ {"clic": "#flat"}, {"attendre": 2000},
+ {"touche": "ArrowRight"}, {"attendre": 8000},
+ {"defiler": "page", "de": 600}, {"attendre": 4000},
+ {"touche": "ArrowRight"}, {"attendre": 8000},
+ {"defiler": "page", "de": 700}, {"attendre": 5000},
+ {"touche": "ArrowRight"}, {"attendre": 6000},
+ {"defiler": "page", "de": 700}, {"attendre": 5000}
+]
