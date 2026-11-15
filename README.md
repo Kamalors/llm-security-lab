@@ -39,6 +39,22 @@ Double-clic sur `Lancer la demo.cmd` à la racine, qui ouvre `automation\Demo_LL
 
 Le jeton du labo est lu dans le conteneur à la connexion et ne reste qu'en mémoire. Sans serveur : définir `LAB_URL` et `LAB_HUMAN_TOKEN` avant de lancer, la fenêtre parle alors directement à un labo local.
 
+## Donner l'accès au labo à un camarade
+
+La clé `id_ed25519_par861454` est la clé **d'administration** du serveur : elle ne se partage pas. Chaque camarade crée sa propre clé, et le responsable (celui qui a la clé d'administration) l'autorise. L'accès accordé est **limité au labo** : saut vers le conteneur et c'est tout, pas de shell ni de droits sur le serveur, qui héberge aussi d'autres projets.
+
+1. **Le camarade** clone le dépôt, puis double-clic sur `automation\Connexion_LLM.cmd`. Au premier lancement, il crée sa clé `~/.ssh/id_ed25519_llm_lab` et sa clé **publique** est copiée dans le presse-papiers. Il l'envoie au responsable.
+2. **Le responsable** autorise cette clé, depuis son PC (celui qui a la clé d'administration) :
+
+   ```powershell
+   powershell -ExecutionPolicy Bypass -File automation\autoriser-collegue.ps1 -Cle "ssh-ed25519 AAAA... llm-lab-nom"
+   ```
+
+   (ou `-Fichier chemin\vers\cle.pub`). Pour révoquer : ajouter `-Retirer`.
+3. **Le camarade** relance `Connexion_LLM.cmd` : la fenêtre de démonstration s'ouvre.
+
+Sous le capot, la clé du camarade est autorisée sur l'hôte avec une commande forcée et `permitopen` vers le seul conteneur (ni shell, ni sudo, ni tunnel vers d'autres services), et en root dans le conteneur du labo, isolé et sans Internet. Les boutons « Ouvrir Proxmox » et les consoles restent réservés à la clé d'administration.
+
 ## L'IHM web : cinq écrans, dans l'ordre de la soutenance
 
 Flèches gauche/droite ou télécommande de présentation pour passer d'un écran à l'autre.
